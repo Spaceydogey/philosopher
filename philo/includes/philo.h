@@ -30,6 +30,7 @@ typedef struct s_args
 }	t_args;
 
 t_args  parse(char **av);
-int parse_error(t_args args);
-int ph_error(int err);
+int 	parse_error(t_args args);
+int 	ph_error(int err);
+void	ft_putstr_fd(char *s, int fd);
 #endif

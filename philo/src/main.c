@@ -16,6 +16,8 @@ int	main(int ac, char **av)
 {
 	t_args	args;
 
+	if (ac < 5 || ac > 6)
+		return (ph_error(2));
 	args = parse(av);
 	if (parse_error(args) == 1)
 		return (1);

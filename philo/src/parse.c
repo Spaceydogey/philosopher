@@ -19,7 +19,7 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-int	ph_atoi(const char *nptr)
+static int	ph_atoi(const char *nptr)
 {
 	long int		res;
 	int				sign;
