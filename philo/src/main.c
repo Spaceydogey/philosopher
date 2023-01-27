@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:03:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 18:59:55 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 23:23:30 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ int	main(int ac, char **av)
 	args.philo_done = 0;
 	if (init_mutex_tab(&mutex.forks, args.nbr_philo) != 0)
 		return (3);
-	nbr_forks = init_mutex(mutex.forks, args.nbr_philo);
-	if (nbr_forks != args.nbr_philo)
-		return (free_mutex_tab(mutex.forks, nbr_forks));
-	if (pthread_mutex_init(&mutex.death_check, NULL) != 0)
-		return (5);
-	if (pthread_mutex_init(&mutex.print, NULL) != 0)
-		return (6);
+	nbr_forks = init_mutex(&mutex, args.nbr_philo);
+	if ((nbr_forks != args.nbr_philo && nbr_forks >= 0) || nbr_forks < 0)
+		return (free_mutex(mutex, args.nbr_philo, nbr_forks));
 	philo(args, mutex);
 	free_mutex_tab(mutex.forks, args.nbr_philo);
 	pthread_mutex_destroy(&mutex.death_check);

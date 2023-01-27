@@ -2,7 +2,7 @@
 NAME = philo
 
 FILES = main.c parse.c error.c putstr.c forks.c philosophers.c time.c\
-		print_log.c simulation.c
+		print_log.c simulation.c check_if_dead.c
 
 SRCS = $(addprefix src/, $(FILES))
 

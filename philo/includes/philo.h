@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:29:35 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 18:55:44 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 00:07:58 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_data
 	size_t			last_meal;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	t_args			args;
+	t_args			*args;
 	t_mutex			mutex;
 }	t_data;
 
@@ -64,8 +64,9 @@ t_args	parse(char **av);
 int		parse_error(t_args args);
 int		ph_error(int err);
 void	ft_putstr_fd(char *s, int fd);
-int		init_mutex(pthread_mutex_t *tab, int nbr_philo);
+int		init_mutex(t_mutex *mutex, int nbr_philo);
 int		init_mutex_tab(pthread_mutex_t **tab, int nbr_philo);
+int		free_mutex(t_mutex mutex, int nbr_philo, int nbr_forks);
 int		free_mutex_tab(pthread_mutex_t *tab, int nbr_philo);
 int		philo(t_args args, t_mutex mutex);
 size_t	get_time(void);
@@ -73,6 +74,6 @@ void	p_sleep(size_t	dt);
 size_t	get_dtime(size_t start_ms);
 int		print_log(char *msg, t_data *philo);
 void	*simulation(void *data);
-int		check_if_dead(pthread_t *pth, t_data *philo_data, t_args args);
+int		check_if_dead(pthread_t *pth, t_data *philo_data, t_args *args);
 
 #endif
