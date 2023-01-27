@@ -1,7 +1,8 @@
 .SILENT:
 NAME = philo
 
-FILES = main.c parse.c error.c putstr.c forks.c philosophers.c
+FILES = main.c parse.c error.c putstr.c forks.c philosophers.c time.c\
+		print_log.c simulation.c
 
 SRCS = $(addprefix src/, $(FILES))
 

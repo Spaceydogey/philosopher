@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:06:09 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/21 16:19:55 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:46:07 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ static int	philo_destroy(pthread_t *pth, int nbr_philo)
 	return (2);
 }
 
-static t_data	philo_data_init(t_args args, pthread_mutex_t *mutex_tab, int i)
+static t_data	philo_data_init(t_args args, t_mutex mutex, int i)
 {
 	t_data	res;
 
 	res.id = i + 1;
 	res.args = args;
-	res.l_fork = mutex_tab[i];
-	res.r_fork = mutex_tab[(i + 1) % args.nbr_philo];
+	res.mutex = mutex;
+	res.l_fork = &mutex.forks[i];
+	res.r_fork = &mutex.forks[(i + 1) % args.nbr_philo];
 	return (res);
 }
 
-int	philo(t_args args, pthread_mutex_t *mutex_tab)
+int	philo(t_args args, t_mutex mutex)
 {
 	pthread_t	*pth;
 	int			i;
@@ -49,13 +50,13 @@ int	philo(t_args args, pthread_mutex_t *mutex_tab)
 	i = -1;
 	while (++i < args.nbr_philo)
 	{
-		philo_data[i] = philo_data_init(args, mutex_tab, i);
+		philo_data[i] = philo_data_init(args, mutex, i);
 		if (pthread_create(&pth[i], NULL, &simulation,
 				(void *)&philo_data[i]) != 0)
 			return (philo_destroy(pth, i));
 	}
-	if (philo_destroy(pth, args.nbr_philo) != 0)
-		return (4);
+	check_if_dead(pth, philo_data);
+	philo_destroy(pth, args.nbr_philo);
 	free(pth);
 	return (0);
 }
