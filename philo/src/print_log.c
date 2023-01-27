@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:07:13 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 13:23:57 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:55:34 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	print_log(char *msg, t_data *philo)
 {
 	size_t	dt;
-
+	
+	if (philo->args.status == DEAD)
+		return (1);
 	dt = get_dtime(philo->args.start_time);
 	if (pthread_mutex_lock(&philo->mutex.print) != 0)
 		return (1);

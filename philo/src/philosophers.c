@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:06:09 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 15:46:07 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:35:16 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static int	philo_destroy(pthread_t *pth, int nbr_philo)
 
 	i = -1;
 	while (++i < nbr_philo)
+	{
 		if (pthread_join(pth[i], NULL) != 0)
 			return (3);
+	}
 	return (2);
 }
 
@@ -30,6 +32,7 @@ static t_data	philo_data_init(t_args args, t_mutex mutex, int i)
 	res.id = i + 1;
 	res.args = args;
 	res.mutex = mutex;
+	res.last_meal = args.start_time;
 	res.l_fork = &mutex.forks[i];
 	res.r_fork = &mutex.forks[(i + 1) % args.nbr_philo];
 	return (res);
@@ -55,8 +58,7 @@ int	philo(t_args args, t_mutex mutex)
 				(void *)&philo_data[i]) != 0)
 			return (philo_destroy(pth, i));
 	}
-	check_if_dead(pth, philo_data);
-	philo_destroy(pth, args.nbr_philo);
+	check_if_dead(pth, philo_data, args);
 	free(pth);
 	return (0);
 }

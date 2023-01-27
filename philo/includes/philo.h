@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:29:35 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 15:47:58 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:55:44 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 # define DEAD 0
 # define ALIVE 1
+
 typedef struct s_args
 {
 	int		nbr_philo;
@@ -35,10 +36,12 @@ typedef struct s_args
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		nbr_to_eat;
+	int		status;
+	int		philo_done;
 	size_t	start_time;
 }	t_args;
 
-typedef struct	s_mutex
+typedef struct s_mutex
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
@@ -47,18 +50,19 @@ typedef struct	s_mutex
 
 typedef struct s_data
 {
-	int	id;
+	int				id;
+	size_t			last_meal;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	t_args	args;
-	t_mutex	mutex;
+	t_args			args;
+	t_mutex			mutex;
 }	t_data;
 
-typedef struct timeval t_timeval;
+typedef struct timeval	t_timeval;
 
-t_args  parse(char **av);
-int 	parse_error(t_args args);
-int 	ph_error(int err);
+t_args	parse(char **av);
+int		parse_error(t_args args);
+int		ph_error(int err);
 void	ft_putstr_fd(char *s, int fd);
 int		init_mutex(pthread_mutex_t *tab, int nbr_philo);
 int		init_mutex_tab(pthread_mutex_t **tab, int nbr_philo);
@@ -69,6 +73,6 @@ void	p_sleep(size_t	dt);
 size_t	get_dtime(size_t start_ms);
 int		print_log(char *msg, t_data *philo);
 void	*simulation(void *data);
-int		check_if_dead(pthread_t *pth, t_data *philo_data);
+int		check_if_dead(pthread_t *pth, t_data *philo_data, t_args args);
 
 #endif

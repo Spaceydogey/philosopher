@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:03:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 15:18:30 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:59:55 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int ac, char **av)
 	if (parse_error(args) == 1)
 		return (2);
 	args.start_time = get_time();
+	args.status = ALIVE;
+	args.philo_done = 0;
 	if (init_mutex_tab(&mutex.forks, args.nbr_philo) != 0)
 		return (3);
 	nbr_forks = init_mutex(mutex.forks, args.nbr_philo);
