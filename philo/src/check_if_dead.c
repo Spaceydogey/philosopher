@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 23:29:16 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 23:55:18 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:53:29 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 static int	philo_set_status(t_data *philo_data, int i)
 {
-	if (pthread_mutex_lock(&philo_data[i].mutex.death_check) != 0)
+	if (pthread_mutex_lock(philo_data[i].mutex.death_check) != 0)
 		return (-1);
 	philo_data->args->status = DEAD;
-	pthread_mutex_unlock(&philo_data[i].mutex.death_check);
+	pthread_mutex_unlock(philo_data[i].mutex.death_check);
 	return (0);
 }
 
 static int	philo_check__if_done(t_data *philo_data, t_args *args)
 {
-	if (pthread_mutex_lock(&philo_data->mutex.death_check) != 0)
+	if (pthread_mutex_lock(philo_data->mutex.death_check) != 0)
 		return (-1);
 	if (args->philo_done == args->nbr_philo)
 	{
-		pthread_mutex_unlock(&philo_data->mutex.death_check);
+		pthread_mutex_unlock(philo_data->mutex.death_check);
 		return (0);
 	}
-	pthread_mutex_unlock(&philo_data->mutex.death_check);
+	pthread_mutex_unlock(philo_data->mutex.death_check);
 	return (1);
 }
 

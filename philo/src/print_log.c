@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:07:13 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 23:23:48 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:51:16 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	print_log(char *msg, t_data *philo)
 	if (philo->args->status == DEAD)
 		return (1);
 	dt = get_dtime(philo->args->start_time);
-	if (pthread_mutex_lock(&philo->mutex.print) != 0)
+	if (pthread_mutex_lock(philo->mutex.print) != 0)
 		return (1);
 	printf("%lu\t%d\t%s\n", dt, philo->id, msg);
-	pthread_mutex_unlock(&philo->mutex.print);
+	pthread_mutex_unlock(philo->mutex.print);
 	return (0);
 }

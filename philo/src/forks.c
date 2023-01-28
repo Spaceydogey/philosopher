@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 14:39:23 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 23:25:51 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:58:16 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,21 @@ int	init_mutex(t_mutex *mutex, int nbr_philo)
 {	
 	int	i;
 
+	mutex->death_check = malloc(sizeof(pthread_mutex_t));
+	if (!mutex->death_check)
+		return (-3);
+	mutex->print = malloc(sizeof(pthread_mutex_t));
+	if (!mutex->print)
+		return (-4);
 	i = -1;
 	while (++i < nbr_philo)
 	{
 		if (pthread_mutex_init(&mutex->forks[i], NULL) != 0)
 			break ;
 	}
-	if (pthread_mutex_init(&mutex->death_check, NULL) != 0)
+	if (pthread_mutex_init(mutex->death_check, NULL) != 0)
 		return (-1);
-	if (pthread_mutex_init(&mutex->print, NULL) != 0)
+	if (pthread_mutex_init(mutex->print, NULL) != 0)
 		return (-2);
 	return (i);
 }
@@ -60,7 +66,7 @@ int	free_mutex(t_mutex mutex, int nbr_philo, int nbr_forks)
 	if (nbr_forks == -2)
 	{
 		free_mutex_tab(mutex.forks, nbr_philo);
-		pthread_mutex_destroy(&mutex.death_check);
+		pthread_mutex_destroy(mutex.death_check);
 		return (6);
 	}
 }

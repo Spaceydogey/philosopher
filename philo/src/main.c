@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:03:52 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/27 23:23:30 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:58:55 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	main(int ac, char **av)
 	if ((nbr_forks != args.nbr_philo && nbr_forks >= 0) || nbr_forks < 0)
 		return (free_mutex(mutex, args.nbr_philo, nbr_forks));
 	philo(args, mutex);
+	free(mutex.print);
+	free(mutex.death_check);
 	free_mutex_tab(mutex.forks, args.nbr_philo);
-	pthread_mutex_destroy(&mutex.death_check);
-	pthread_mutex_destroy(&mutex.print);
+	pthread_mutex_destroy(mutex.death_check);
+	pthread_mutex_destroy(mutex.print);
 	return (0);
 }

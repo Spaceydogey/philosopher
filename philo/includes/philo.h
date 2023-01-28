@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:29:35 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 00:07:58 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:46:41 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_args
 typedef struct s_mutex
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
-	pthread_mutex_t	death_check;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*death_check;
 }	t_mutex;
 
 typedef struct s_data

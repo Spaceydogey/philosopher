@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:35:33 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 00:09:15 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/28 19:52:51 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ static int	philo_eat(t_data *philo)
 
 static int	close_thread(t_data *philo)
 {
-	if (pthread_mutex_lock(&philo->mutex.death_check) != 0)
+	if (pthread_mutex_lock(philo->mutex.death_check) != 0)
 		return (1);
 	if (philo->args->status == DEAD)
 	{	
-		pthread_mutex_unlock(&philo->mutex.death_check);
+		pthread_mutex_unlock(philo->mutex.death_check);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->mutex.death_check);
+	pthread_mutex_unlock(philo->mutex.death_check);
 	return (0);
 }
 
 void	*incr_philo_done(t_data *philo)
 {
-	if (pthread_mutex_lock(&philo->mutex.death_check) != 0)
+	if (pthread_mutex_lock(philo->mutex.death_check) != 0)
 		return (NULL);
 	philo->args->philo_done += 1;
-	pthread_mutex_unlock(&philo->mutex.death_check);
+	pthread_mutex_unlock(philo->mutex.death_check);
 	return (NULL);
 }
 

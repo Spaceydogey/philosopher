@@ -25,11 +25,11 @@ DETECTED_OS = $(shell uname)
 $(NAME): $(OBJ)
 		$(PRINT_OS)
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS) $(FFLAGS) -I$(INCLUDE) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) -fsanitize=thread -g -I$(INCLUDE) $(OBJ) -o $(NAME)
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS) $(FFLAGS) -I$(INCLUDE) -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS) -fsanitize=thread -g -I$(INCLUDE) -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 
