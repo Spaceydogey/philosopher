@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 14:39:23 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 19:58:16 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/01/29 12:55:26 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ int	free_mutex(t_mutex mutex, int nbr_philo, int nbr_forks)
 		pthread_mutex_destroy(mutex.death_check);
 		return (6);
 	}
+	return (0);
 }
