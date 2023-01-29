@@ -47,14 +47,18 @@ static int	philo_alive(pthread_t *pth, t_data *philo_data, t_args *args)
 		is_done = philo_check__if_done(philo_data, args);
 		if (!is_done)
 			return (is_done);
+		if (pthread_mutex_lock(philo_data->mutex.death_check) != 0)
+			return (-1);
 		if (get_dtime(philo_data[i].last_meal) >= (size_t)args->time_to_die)
 		{
+			pthread_mutex_unlock(philo_data->mutex.death_check);
 			res -= 1;
 			print_log(DIE, &philo_data[i]);
 			if (philo_set_status(philo_data, i) < 0)
 				return (-1);
 			break ;
 		}
+		pthread_mutex_unlock(philo_data->mutex.death_check);
 	}
 	return (res);
 }

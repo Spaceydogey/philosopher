@@ -22,7 +22,10 @@ static int	philo_eat(t_data *philo)
 		if (pthread_mutex_lock(philo->r_fork) != 0)
 			return (1);
 		print_log(FORK, philo);
+		if (pthread_mutex_lock(philo->mutex.death_check) != 0)
+			return (1);
 		philo->last_meal = get_time();
+		pthread_mutex_unlock(philo->mutex.death_check);
 		print_log(EAT, philo);
 		p_sleep(philo->args->time_to_eat);
 		pthread_mutex_unlock(philo->r_fork);

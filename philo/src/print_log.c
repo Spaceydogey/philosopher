@@ -15,9 +15,14 @@
 int	print_log(char *msg, t_data *philo)
 {
 	size_t	dt;
-
-	if (philo->args->status == DEAD)
+if (pthread_mutex_lock(philo->mutex.death_check) != 0)
 		return (1);
+	if (philo->args->status == DEAD)
+	{
+		pthread_mutex_unlock(philo->mutex.death_check);
+		return (1);
+	}
+	pthread_mutex_unlock(philo->mutex.death_check);
 	dt = get_dtime(philo->args->start_time);
 	if (pthread_mutex_lock(philo->mutex.print) != 0)
 		return (1);
