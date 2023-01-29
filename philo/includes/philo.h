@@ -46,6 +46,7 @@ typedef struct s_mutex
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*death_check;
+	pthread_mutex_t	*done;
 }	t_mutex;
 
 typedef struct s_data

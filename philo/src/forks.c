@@ -22,6 +22,9 @@ int	init_mutex(t_mutex *mutex, int nbr_philo)
 	mutex->print = malloc(sizeof(pthread_mutex_t));
 	if (!mutex->print)
 		return (-4);
+	mutex->done = malloc(sizeof(pthread_mutex_t));
+	if (!mutex->done)
+		return (-5);
 	i = -1;
 	while (++i < nbr_philo)
 	{

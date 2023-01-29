@@ -23,14 +23,15 @@ static int	philo_set_status(t_data *philo_data, int i)
 
 static int	philo_check__if_done(t_data *philo_data, t_args *args)
 {
-	if (pthread_mutex_lock(philo_data->mutex.death_check) != 0)
-		return (-1);
+	if (pthread_mutex_lock(philo_data->mutex.done) != 0)
+		return (1);
+	
 	if (args->philo_done == args->nbr_philo)
 	{
-		pthread_mutex_unlock(philo_data->mutex.death_check);
+		pthread_mutex_unlock(philo_data->mutex.done);
 		return (0);
 	}
-	pthread_mutex_unlock(philo_data->mutex.death_check);
+	pthread_mutex_unlock(philo_data->mutex.done);
 	return (1);
 }
 

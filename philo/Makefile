@@ -8,9 +8,11 @@ SRCS = $(addprefix src/, $(FILES))
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 FFLAGS = -fsanitize=address -g
+
+FTHREADS = -fsanitize=thread -g
 
 CC = @cc
 
@@ -25,11 +27,11 @@ DETECTED_OS = $(shell uname)
 $(NAME): $(OBJ)
 		$(PRINT_OS)
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS) -fsanitize=thread -g -I$(INCLUDE) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) -I$(INCLUDE) $(OBJ) -o $(NAME)
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS) -fsanitize=thread -g -I$(INCLUDE) -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS)-I$(INCLUDE) -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 

@@ -49,10 +49,10 @@ static int	close_thread(t_data *philo)
 
 void	*incr_philo_done(t_data *philo)
 {
-	if (pthread_mutex_lock(philo->mutex.death_check) != 0)
+	if (pthread_mutex_lock(philo->mutex.done) != 0)
 		return (NULL);
 	philo->args->philo_done += 1;
-	pthread_mutex_unlock(philo->mutex.death_check);
+	pthread_mutex_unlock(philo->mutex.done);
 	return (NULL);
 }
 
@@ -73,6 +73,8 @@ void	*simulation(void *data)
 		if (close_thread(philo))
 			break ;
 		philo_eat(philo);
+		if (i == philo->args->nbr_to_eat - 1)
+			incr_philo_done(philo);
 		if (close_thread(philo))
 			break ;
 		print_log(SLEEP, philo);
@@ -82,5 +84,5 @@ void	*simulation(void *data)
 		if (close_thread(philo))
 			break ;
 	}
-	return (incr_philo_done(philo));
+	return (0);
 }

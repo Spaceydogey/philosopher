@@ -34,6 +34,7 @@ int	main(int ac, char **av)
 	philo(args, mutex);
 	free(mutex.print);
 	free(mutex.death_check);
+	free(mutex.done);
 	free_mutex_tab(mutex.forks, args.nbr_philo);
 	pthread_mutex_destroy(mutex.death_check);
 	pthread_mutex_destroy(mutex.print);
