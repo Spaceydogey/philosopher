@@ -30,6 +30,11 @@ static int	philo_eat(t_data *philo)
 		p_sleep(philo->args->time_to_eat);
 		pthread_mutex_unlock(philo->r_fork);
 	}
+	else
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		return (1);
+	}
 	pthread_mutex_unlock(philo->l_fork);
 	return (0);
 }
@@ -70,9 +75,8 @@ void	*simulation(void *data)
 		if (close_thread(philo))
 			break ;
 		print_log(THINK, philo);
-		if (close_thread(philo))
+		if (close_thread(philo) || philo_eat(philo))
 			break ;
-		philo_eat(philo);
 		if (i == philo->args->nbr_to_eat - 1)
 			incr_philo_done(philo);
 		if (close_thread(philo))
