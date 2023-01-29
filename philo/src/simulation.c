@@ -81,8 +81,6 @@ void	*simulation(void *data)
 		if (close_thread(philo))
 			break ;
 		p_sleep(philo->args->time_to_sleep);
-		if (close_thread(philo))
-			break ;
 	}
 	return (0);
 }
