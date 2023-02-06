@@ -8,7 +8,7 @@ SRCS = $(addprefix src/, $(FILES))
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror   
+CFLAGS = -Wall -Wextra -Werror 
 
 FFLAGS = -fsanitize=address -g
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS)-I$(INCLUDE) -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS) -g -I$(INCLUDE) -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 

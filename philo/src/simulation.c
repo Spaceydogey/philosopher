@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 15:35:33 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 19:52:51 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/02/06 17:28:38 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,43 @@
 
 static int	philo_eat(t_data *philo)
 {
-	if (pthread_mutex_lock(philo->l_fork) != 0)
-		return (1);
+	pthread_mutex_lock(philo->l_fork);
 	print_log(FORK, philo);
 	if (philo->l_fork != philo->r_fork)
 	{
-		if (pthread_mutex_lock(philo->r_fork) != 0)
-			return (1);
+		pthread_mutex_lock(philo->r_fork);
 		print_log(FORK, philo);
-		if (pthread_mutex_lock(philo->mutex.death_check) != 0)
-			return (1);
+		pthread_mutex_lock(philo->mutex.last_meal);
 		philo->last_meal = get_time();
-		pthread_mutex_unlock(philo->mutex.death_check);
+		pthread_mutex_unlock(philo->mutex.last_meal);
 		print_log(EAT, philo);
 		p_sleep(philo->args->time_to_eat);
 		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
 	}
 	else
 	{
 		pthread_mutex_unlock(philo->l_fork);
 		return (1);
 	}
-	pthread_mutex_unlock(philo->l_fork);
 	return (0);
 }
 
 static int	close_thread(t_data *philo)
 {
-	if (pthread_mutex_lock(philo->mutex.death_check) != 0)
-		return (1);
-	if (philo->args->status == DEAD)
-	{	
-		pthread_mutex_unlock(philo->mutex.death_check);
-		return (1);
-	}
+	int	tmp;
+
+	pthread_mutex_lock(philo->mutex.death_check);
+	tmp = philo->args->status;
 	pthread_mutex_unlock(philo->mutex.death_check);
+	if (philo->args->status == DEAD)
+		return (1);
 	return (0);
 }
 
 void	*incr_philo_done(t_data *philo)
 {
-	if (pthread_mutex_lock(philo->mutex.done) != 0)
-		return (NULL);
+	pthread_mutex_lock(philo->mutex.done);
 	philo->args->philo_done += 1;
 	pthread_mutex_unlock(philo->mutex.done);
 	return (NULL);

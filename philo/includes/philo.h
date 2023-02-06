@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:29:35 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 19:46:41 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/02/06 17:30:33 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_mutex
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*death_check;
 	pthread_mutex_t	*done;
+	pthread_mutex_t	*last_meal;
 }	t_mutex;
 
 typedef struct s_data

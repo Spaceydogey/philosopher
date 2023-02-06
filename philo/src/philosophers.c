@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 16:06:09 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/01/28 00:06:22 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/02/06 17:55:19 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_data	philo_data_init(t_args *args, t_mutex mutex, int i)
 	res.id = i + 1;
 	res.args = args;
 	res.mutex = mutex;
-	res.last_meal = args->start_time;
+	res.last_meal = get_time();
 	res.l_fork = &mutex.forks[i];
 	res.r_fork = &mutex.forks[(i + 1) % args->nbr_philo];
 	return (res);
