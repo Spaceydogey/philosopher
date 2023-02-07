@@ -8,7 +8,7 @@ SRCS = $(addprefix src/, $(FILES))
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror $(FFLAGS)
 
 FFLAGS = -fsanitize=address -g
 

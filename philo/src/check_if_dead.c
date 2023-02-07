@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 23:29:16 by hdelmas           #+#    #+#             */
-/*   Updated: 2023/02/06 17:57:48 by hdelmas          ###   ########.fr       */
+/*   Updated: 2023/02/07 11:53:21 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int	philo_alive(pthread_t *pth, t_data *philo_data, t_args *args)
 		is_done = philo_check__if_done(philo_data, args);
 		if (!is_done)
 			return (is_done);
-		pthread_mutex_lock(philo_data->mutex.last_meal);
+		pthread_mutex_lock(philo_data[i].mutex.last_meal);
 		last_meal_tmp = philo_data[i].last_meal;
-		pthread_mutex_unlock(philo_data->mutex.last_meal);
+		pthread_mutex_unlock(philo_data[i].mutex.last_meal);
 		if (get_dtime(last_meal_tmp) > (size_t)args->time_to_die)
 		{
 			res -= 1;
